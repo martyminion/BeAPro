@@ -12,9 +12,9 @@ def welcome(request):
 @login_required
 def profile(request):
   current_user = request.user
-  title = current_user + " Profile"
+  title = current_user.username + " Profile"
   user_profile = Profile.get_user_profile(current_user)
-  context = {"title":title,"current_user":current_user,"user_profile":user_profile}
+  context = {"title":title,"current_user":current_user,"userprofile":user_profile}
   return render(request,'profile/single_profile.html',context)
 
 @login_required
@@ -42,7 +42,7 @@ def new_profile(request):
   else:
     form = ProfileForm()
   context = {"current_user":current_user,"title":title,"form":form}
-  return render(request,'new_profile.html',context)
+  return render(request,'profile/new_profile.html',context)
 
 @login_required
 def update_profile(request):
@@ -69,5 +69,5 @@ def update_profile(request):
   else:
     form = ProfileForm()
   context = {"current_user":current_user,"title":title,"form":form}
-  return render(request,'update_profile.html',context)
+  return render(request,'profile/update_profile.html',context)
 
