@@ -1,1 +1,9 @@
-<h2>Welcome</h2>
+{% extends 'base.html' %}
+
+{% block content%}
+{{block.super}}
+<div class="container">
+  <h2>Welcome</h2>
+</div>
+
+{% endblock %}
