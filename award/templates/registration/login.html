@@ -1,0 +1,42 @@
+{% extends "registration/base.html" %}
+{% load bootstrap4 %}
+{% load static%}
+
+{% block content%}
+<div class="container">
+  <div class="row" style="margin-top: 50px;">
+    <!--Empty div-->
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      {% if form.errors %}
+      <div class="alert alert-danger" role="alert">
+        <i>Some information Might be Incorrect</i>
+      </div> 
+      {%endif%}
+      <div class="panel panel-default text-center">
+        <div class="panel-heading"> <img src="{% static 'images/Black Businessman.png'%}" alt="black-business-man" width="200" height="200">
+          <h3 class="text-center">Welcome Back Pro</h3>
+        </div>
+        <div class="panel-body">
+          <form action="/accounts/register" method="POST">
+            {%csrf_token%}
+            {% bootstrap_form form %}
+            <div class="form-group">
+              <input type="submit" class="btn btn-primary btn-sm" value="Login">
+            </div>
+            <input type="hidden" name="next" value="{{next}}">
+          </form>
+          <blockquote>Don't have an account <a class="btn btn-outline-primary" href="/accounts/register/">Join Us Today</a></blockquote>
+        </div>
+
+      </div>
+
+    </div>
+    <div class="col-md-4">
+
+    </div>
+  
+  </div>
+ 
+</div>
+{%endblock%}
