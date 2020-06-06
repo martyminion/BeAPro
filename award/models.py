@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 # Create your models here.
 
-User = get_user_model
+User = get_user_model()
 class Profile(models.Model):
   picture = models.ImageField(upload_to = 'award/',blank=True)
   bio = models.TextField(blank=True)
@@ -55,3 +57,5 @@ class Project(models.Model):
   live_site = models.CharField(max_length=100)
   profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
 
+  def __str__(self):
+    return self.title

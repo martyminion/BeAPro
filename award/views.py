@@ -70,3 +70,4 @@ def update_profile(request):
     form = ProfileForm()
   context = {"current_user":current_user,"title":title,"form":form}
   return render(request,'update_profile.html',context)
+
