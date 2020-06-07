@@ -15,8 +15,8 @@
               <img src="{{userprofile.picture.url}}" alt="picture" width="200" height="200" class="profpicimg">
             </td>
             <td style="padding-top: 60px;">
-              <p>{{current_user.username}}</p>
-              <p>{{userprofile.bio}}</p>
+              <h2 class="username">{{current_user.username.capitalize}}</h2>
+              <blockquote class="bio">{{userprofile.bio}}</blockquote>
             </td>
           </tr>
         </table>
@@ -29,15 +29,15 @@
       
     </div>
   </div>
-  <h3> {{current_user.username}}'s Projects</h3>
+  <h4 class="username"> {{current_user.username.capitalize}}'s Projects</h4>
   <div class="row">
 
     {%for project in projects%}
-    <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12">
+    <div class="col-md-4 col-lg-3 col-sm-6 col-xs-12 box">
       <a href="{%url 'singleproject' project.id%}">
-        <p>{{project.title}}</p>
+        <h5 class="titles">{{project.title}}</h5>
       </a>
-      <img src="{{project.landing_page.url}}" alt="{{project.title}}" width="250" height="200" ><br>
+      <img src="{{project.landing_page.url}}" alt="{{project.title}}"><br>
       <blockquote><a href="{{project.live_site}}">{{project.live_site}}</a></blockquote>
       <cite class="text-muted">posted {{project.pub_date|timesince}} ago</cite>
     </div>

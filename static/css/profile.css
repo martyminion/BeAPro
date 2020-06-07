@@ -1,3 +1,16 @@
 .profpicimg{
   border-radius: 50%;
 }
+
+.username{
+  font-family: 'Piedra', cursive;
+}
+
+.titles{
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 25px;
+}
+
+.box{
+  margin-top: 20px;
+}
