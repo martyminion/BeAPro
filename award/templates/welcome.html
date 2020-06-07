@@ -9,7 +9,7 @@
   <div class="row grid">
     {%for project in projects%}
     <div class=" grid_item col-md-4 col-lg-3 col-sm-6 col-xs-12">
-      <div class="card" style="width: 18rem;">
+      <div class="card">
         <img src="{{project.landing_page.url}}" alt="">
         <div class="card-body">
           <a href="{%url 'singleproject' project.id %}"><h5 class="card-title">{{project.title}}</h5></a>
