@@ -9,5 +9,7 @@ urlpatterns = [
   path('upload/project',views.upload_project, name='uploadproject'),
   path('single/project/<int:projectid>',views.singleproject,name='singleproject'),
   path('rate/project/<int:projectid>',views.rate_project,name='rateproject'),
+  path('api/projects/',views.ProjectList.as_view()),
+  path('api/profiles/',views.ProfileList.as_view()),
   
 ]
