@@ -1,0 +1,25 @@
+.titles{
+  font-family: 'Kaushan Script', cursive;
+  font-size: 50px;
+}
+.ratings{
+  font-family: 'Special Elite', cursive;
+  font-size: 40px;
+  text-decoration: underline;
+}
+.fill {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 400px;
+}
+.description{
+  font-family: 'Bellota', cursive;
+  font-size: 20px;
+}
+
+.names{
+  font-family: 'Raleway', sans-serif;
+  font-size: 25px ;
+}

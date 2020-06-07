@@ -3,25 +3,37 @@
 
 {%block content%}
 {{block.super}}
-<div class="container">
+<div class="container text-center">
+
   <div style="margin-top: 100px;">
-    <p>{{project.title}}</p>
-  <p>{{project.description}}</p>
-  <p>{{project.live_site}}</p>
-  <p>{{project.profile}}</p>
+    <div class="row">
+      <div class="col-md-6 col-lg-6">
+        <div class="fill">
+          <img src="{{project.landing_page.url}}" alt="" class="projecimg">
+        </div>
+        <p class="names">By {{project.profile.first_name.capitalize}}</p>
+      </div>
+      <div class="col-md-6 col-lg-6 my-auto">
+        <h3 class="titles">{{project.title}}</h3>
+        <cite class="description">{{project.description}}</cite>
+        <a href="{{project.live_site}}"><blockquote class="description">{{project.live_site}}</blockquote></a>
+        <div>
+          <a class="btn btn-outline-success" href="{% url 'rateproject' project.id %}">Rate</a>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div>
-    <h3>Ratings</h3>
+    <h3 class="ratings">Ratings</h3>
     {% for rating in ratings%}
-      <p>{{rating.profile}}</p>
-      <p>Design: {{rating.design}} Usability: {{rating.usability}} Content: {{rating.content}} Content: {{rating.content}}</p>
-      <p></p>
-      <p>Content: {{rating.content}}</p>
-      <p>Average: {{rating.average}}</p>
-    {%endfor%}
-  </div>
-  <div>
-    <a href="{% url 'rateproject' project.id %}">Rate</a>
+    <p> <span class="names" style="margin-right: 20px;">{{rating.profile.first_name.capitalize}}</span> 
+      <span class="mr-2 description">Design: {{rating.design}}</span>
+      <span class="mr-2 description">Usability: {{rating.usability}}</span>
+      <span class="mr-2 description">Content: {{rating.content}}</span>
+      <span class="mr-2 description">Average: {{rating.average}}<i class="far fa-star ml-2" ></i></span>    
+     </p>
+       {%endfor%}
   </div>
   
 </div>
