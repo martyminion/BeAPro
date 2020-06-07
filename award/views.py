@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from .forms import ProfileForm,ProjectForm
 from .models import Project,Profile
 from django.contrib.auth.decorators import login_required
+import datetime as dt
 
 # Create your views here.
 
@@ -14,6 +15,7 @@ def profile(request):
   current_user = request.user
   title = current_user.username + " Profile"
   user_profile = Profile.get_user_profile(current_user)
+  
   context = {"title":title,"current_user":current_user,"userprofile":user_profile}
   return render(request,'profile/single_profile.html',context)
 
@@ -71,3 +73,27 @@ def update_profile(request):
   context = {"current_user":current_user,"title":title,"form":form}
   return render(request,'profile/update_profile.html',context)
 
+@login_required
+def upload_project(request):
+  title = "Project Upload"
+  current_user = request.user
+  user_profile = Profile.get_user_profile(current_user)
+  if request.method == 'POST':
+    form = ProjectForm(request.POST, request.FILES)
+    if form.is_valid():
+      new_project = form.save(commit=False)
+      new_project.profile = user_profile
+      new_project.pub_date = dt.date.today()
+      new_project.save()
+      return redirect(profile)
+  else:
+    form = ProjectForm()
+  context = {"current_user":current_user,"title":title,"form":form}
+  return render(request,'project/upload_project.html',context)
+
+@login_required
+def singleproject(request,projectid):
+  project = Project.get_single_project(projectid)
+  title = project.title
+
+  return render(request, 'project/single_project.html', {"title":title,"project":project})

@@ -1,0 +1,12 @@
+{%extends 'project/base.html'%}
+{%load static%}
+
+{%block content%}
+{{block.super}}
+<div class="container">
+  <p>{{project.title}}</p>
+  <p>{{project.description}}</p>
+  <p>{{project.live_site}}</p>
+  <p>{{project.profile}}</p>
+</div>
+{%endblock%}

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+import datetime as dt
 # Create your models here.
 
 User = get_user_model()
@@ -51,11 +52,17 @@ def save_user_profile(sender, instance, **kwargs):
 
 
 class Project(models.Model):
-  title = models.CharField(max_length=50,)
+  title = models.CharField(max_length=50,unique=True)
   landing_page = models.ImageField(upload_to = 'award/')
   description = models.TextField()
   live_site = models.CharField(max_length=100)
   profile = models.ForeignKey(Profile,on_delete=models.CASCADE)
+  pub_date = models.DateTimeField(auto_now_add=True)
+  
+  @classmethod
+  def get_single_project(cls,projectid):
+    project = cls.objects.get(id = projectid)
+    return project
 
   def __str__(self):
     return self.title
