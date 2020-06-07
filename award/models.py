@@ -71,3 +71,19 @@ class Project(models.Model):
 
   def __str__(self):
     return self.title
+
+class Rating(models.Model):
+  design = models.IntegerField()
+  usability = models.IntegerField()
+  content = models.IntegerField()
+  profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+  project = models.ForeignKey(Project, on_delete=models.CASCADE)
+
+  @classmethod
+  def get_project_ratings(cls,projectid):
+    ratings = cls.objects.filter(project = projectid)
+    return ratings
+
+  def average_ratings(self):
+    average = (self.design + self.usability + self.content)/3
+    return average
