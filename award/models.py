@@ -64,5 +64,10 @@ class Project(models.Model):
     project = cls.objects.get(id = projectid)
     return project
 
+  @classmethod
+  def get_all_projects_user(cls,profileid):
+    projects = cls.objects.filter(profile = profileid)
+    return projects
+
   def __str__(self):
     return self.title

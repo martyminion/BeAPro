@@ -15,8 +15,8 @@ def profile(request):
   current_user = request.user
   title = current_user.username + " Profile"
   user_profile = Profile.get_user_profile(current_user)
-  
-  context = {"title":title,"current_user":current_user,"userprofile":user_profile}
+  projects = Project.get_all_projects_user(user_profile)
+  context = {"title":title,"current_user":current_user,"userprofile":user_profile,"projects":projects}
   return render(request,'profile/single_profile.html',context)
 
 @login_required

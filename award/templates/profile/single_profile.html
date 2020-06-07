@@ -26,6 +26,13 @@
     </div>
   </div>
   <h3> {{current_user.username}}'s Projects</h3>
+  <div>
+    {%for project in projects%}
+      <p>{{project.title}}</p>
+      <img src="{{project.landing_page.url}}" alt="{{project.title}}">
+      <p>{{project.pub_date}}</p>
+
+  </div>
   <a href="{% url 'uploadproject' %}">Upload a Project</a>
 </div>
 
