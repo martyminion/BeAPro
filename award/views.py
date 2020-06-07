@@ -3,6 +3,10 @@ from .forms import ProfileForm,ProjectForm,RatingsForm
 from .models import Project,Profile,Rating
 from django.contrib.auth.decorators import login_required
 import datetime as dt
+#rest_framework
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .serializer import ProfileSerializer,ProjectSerializer
 
 # Create your views here.
 
@@ -120,3 +124,11 @@ def rate_project(request,projectid):
     form = RatingsForm()
   context = {'title':title,'project':project,'form':form}
   return render(request,'project/rate_project.html',context)
+
+class ProjectList(APIView):
+  def get(self,request, format = None):
+    all_projects = Project.get_all_projects()
+    serializers = ProjectSerializer(all_projects,many = True)
+    return Response(serializers.data)
+
+
