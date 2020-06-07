@@ -70,16 +70,21 @@ class Project(models.Model):
     projects = cls.objects.filter(profile = profileid)
     return projects
 
+  @classmethod
+  def get_all_projects(cls):
+    projects = cls.objects.all()
+    return projects
+
   def __str__(self):
     return self.title
 
 class Rating(models.Model):
-  design = models.DecimalField(decimal_places=2)
-  usability = models.DecimalField(decimal_places=2)
-  content = models.DecimalField(decimal_places=2)
+  design = models.DecimalField(decimal_places=2,max_digits=4)
+  usability = models.DecimalField(decimal_places=2,max_digits=4)
+  content = models.DecimalField(decimal_places=2,max_digits=4)
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
   project = models.ForeignKey(Project, on_delete=models.CASCADE)
-  average = models.DecimalField(decimal_places=2)
+  average = models.DecimalField(decimal_places=2,max_digits=4)
 
   @classmethod
   def get_project_ratings(cls,projectid):

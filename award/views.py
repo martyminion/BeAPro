@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
-from .forms import ProfileForm,ProjectForm
-from .models import Project,Profile
+from .forms import ProfileForm,ProjectForm,RatingsForm
+from .models import Project,Profile,Rating
 from django.contrib.auth.decorators import login_required
 import datetime as dt
 
@@ -8,7 +8,10 @@ import datetime as dt
 
 def welcome(request):
   title = "Be A Pro"
-  return render(request,'welcome.html',{"title":title})
+  projects = Project.get_all_projects()
+  
+
+  return render(request,'welcome.html',{"title":title,"projects":projects})
 
 @login_required
 def profile(request):
@@ -95,5 +98,25 @@ def upload_project(request):
 def singleproject(request,projectid):
   project = Project.get_single_project(projectid)
   title = project.title
+  ratings = Rating.get_project_ratings(project)
 
-  return render(request, 'project/single_project.html', {"title":title,"project":project})
+  return render(request, 'project/single_project.html', {"title":title,"project":project,"ratings":ratings})
+
+@login_required
+def rate_project(request,projectid):
+  project = Project.get_single_project(projectid)
+  title = "Rate " + project.title
+  if request.method == 'POST':
+    form = RatingsForm(request.POST)
+    if form.is_valid():
+      new_rating = form.save(commit=False)
+      new_rating.profile = project.profile
+      new_rating.project = project
+      new_rating.average = new_rating.average_individual_ratings()
+
+      new_rating.save()
+      return redirect(singleproject,projectid = project.id)
+  else:
+    form = RatingsForm()
+  context = {'title':title,'project':project,'form':form}
+  return render(request,'project/rate_project.html',context)
