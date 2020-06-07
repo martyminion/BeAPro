@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 import datetime as dt
+from statistics import mean
 # Create your models here.
 
 User = get_user_model()
@@ -73,17 +74,26 @@ class Project(models.Model):
     return self.title
 
 class Rating(models.Model):
-  design = models.IntegerField()
-  usability = models.IntegerField()
-  content = models.IntegerField()
+  design = models.DecimalField(decimal_places=2)
+  usability = models.DecimalField(decimal_places=2)
+  content = models.DecimalField(decimal_places=2)
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
   project = models.ForeignKey(Project, on_delete=models.CASCADE)
+  average = models.DecimalField(decimal_places=2)
 
   @classmethod
   def get_project_ratings(cls,projectid):
     ratings = cls.objects.filter(project = projectid)
     return ratings
 
-  def average_ratings(self):
+  def average_individual_ratings(self):
     average = (self.design + self.usability + self.content)/3
     return average
+
+  def jury_average(projectid):
+    projectratings = Rating.get_project_ratings(projectid)
+    averagearr = []
+    for projectrating in projectratings:
+      averagearr.append(projectrating.average)
+    avg = mean(averagearr)
+    return round(avg,2)
