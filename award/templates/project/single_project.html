@@ -13,10 +13,12 @@
   <div>
     <h3>Ratings</h3>
     {% for rating in ratings%}
-      <p>{{rating.profilr}}</p>
-      <p></p>
-      <p></p>
-      <p></p>
+      <p>{{rating.profile}}</p>
+      <p>{{rating.design}}</p>
+      <p>{{rating.usability}}</p>
+      <p>{{rating.content}}</p>
+      <p>{{rating.average}}</p>
+    {%endfor%}
   </div>
   <div>
     <a href="{% url 'rateproject' project.id %}">Rate</a>
