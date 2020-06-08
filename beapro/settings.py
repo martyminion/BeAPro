@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'award.apps.AwardConfig',
     'bootstrap4',
     'rest_framework',
+    'rest_framework.authtoken'
 ]
 
 MIDDLEWARE = [
@@ -151,3 +152,10 @@ STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 #this allows acces to uploaded images through localhost:8000/media/articles/image.jpg
+
+#REST FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES':(
+        'rest_framework.authentication.TokenAuthentication',
+    )
+}

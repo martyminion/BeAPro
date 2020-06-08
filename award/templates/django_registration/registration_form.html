@@ -4,10 +4,15 @@
 
 
 {% block content%}
-<div class="container">
-  <div class="row" style="margin-top: 50px;">
+<div class="container text-center">
+  <div class="row" style="margin-top: 150px;">
     <!--Empty div-->
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div style="margin-top: 100px;">
+      <img src="{% static 'images/Black Businessman.png'%}" alt="black-business-man" width="300" height="300">
+      <h3 class="text-center">Join Us and Be A Pro</h3>
+    </div>
+    </div>
     <div class="col-md-4 ">
       {% if form.errors %}
       <div class="alert alert-danger" role="alert">
@@ -16,8 +21,7 @@
       {%endif%}
       <div class="panel panel-default text-center">
         <div class="panel-heading">
-          <img src="{% static 'images/Black Businessman.png'%}" alt="black-business-man" width="200" height="200">
-          <h3 class="text-center">Join Us and Be A Pro</h3>
+          <h2>Register Today</h2>
         </div>
         <div class="panel-body">
           <form action="/accounts/register/" method="POST">
