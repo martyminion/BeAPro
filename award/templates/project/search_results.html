@@ -1,12 +1,15 @@
-{%extends 'project/base.html'%}
-{%load static%}
+{% extends 'project/base.html'%}
+{% load static%}
 
 {%block content%}
 {{block.super}}
-<div class="container text-center">
-
+<div class="container">
+  <!-- <div class="alert alert-danger">
+    <p>{{message}}</p>
+  </div> -->
   <div style="margin-top: 100px;">
     <div class="row">
+      {%for project in results%}
       <div class="col-md-6 col-lg-6">
         <div class="fill">
           <img src="{{project.landing_page.url}}" alt="{{project.title}}">
@@ -21,20 +24,9 @@
           <a class="btn btn-outline-success" href="{% url 'rateproject' project.id %}">Rate</a>
         </div>
       </div>
+      {%endfor%}
     </div>
   </div>
 
-  <div>
-    <h3 class="ratings">Ratings</h3>
-    {% for rating in ratings%}
-    <p> <span class="names" style="margin-right: 20px;">{{rating.profile.first_name.capitalize}}</span> 
-      <span class="mr-2 description">Design: {{rating.design}}</span>
-      <span class="mr-2 description">Usability: {{rating.usability}}</span>
-      <span class="mr-2 description">Content: {{rating.content}}</span>
-      <span class="mr-2 description">Average: {{rating.average}}<i class="far fa-star ml-2" ></i></span>    
-     </p>
-       {%endfor%}
-  </div>
-  
 </div>
-{%endblock%}
+{% endblock %}

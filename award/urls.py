@@ -11,5 +11,6 @@ urlpatterns = [
   path('rate/project/<int:projectid>',views.rate_project,name='rateproject'),
   path('api/projects/',views.ProjectList.as_view()),
   path('api/profiles/',views.ProfileList.as_view()),
+  path('search/project',views.search_project, name='projectsearch')
   
 ]

@@ -136,3 +136,17 @@ class ProfileList(APIView):
     all_profiles = Profile.objects.all()
     serializers = ProfileSerializer(all_profiles,many = True)
     return Response(serializers.data)
+
+def search_project(request):
+  title = "project search"
+  if 'searchproject' in request.GET and request.GET["searchproject"]:
+    searchproject = request.GET.get("searchproject")
+    results = Project.search_project_title(searchproject)
+    if len(results)>0:
+      return render(request,'project/search_results.html',{"title":title,"results":results,"projectsearch":searchproject})
+    else:
+      message = "Could not find project with that title"
+      return render(request,'project/search_results.html',{"title":title,"message":message,"projectsearch":searchproject})
+  else:
+    message = "Please enter a valid project title"
+    return render(request,'project/search_results.html',{"title":title,"message":message,"namesearch":searchname})
