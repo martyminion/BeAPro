@@ -4,11 +4,12 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save
 import datetime as dt
 from statistics import mean
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 User = get_user_model()
 class Profile(models.Model):
-  picture = models.ImageField(upload_to = 'award/',blank=True)
+  picture = CloudinaryField('image',blank=True)
   bio = models.TextField(blank=True)
   first_name = models.CharField(max_length=10,blank=True)
   last_name = models.CharField(max_length=10,blank=True)
@@ -54,7 +55,7 @@ def save_user_profile(sender, instance, **kwargs):
 
 class Project(models.Model):
   title = models.CharField(max_length=50,unique=True)
-  landing_page = models.ImageField(upload_to = 'award/')
+  landing_page = CloudinaryField('image')
   description = models.TextField()
   live_site = models.CharField(max_length=100)
   profile = models.ForeignKey(Profile,on_delete=models.CASCADE)

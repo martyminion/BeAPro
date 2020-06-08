@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import dj_database_url
 from decouple import config,Csv
+import cloudinary
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'rest_framework',
     'rest_framework.authtoken',
+    'cloudinary',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +161,11 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+#cloudinary
+cloudinary.config( 
+    cloud_name = config('cloud_name'), 
+    api_key = config('api_key'),
+    api_secret = config('api_secret'),
+
+)
