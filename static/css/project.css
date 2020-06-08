@@ -23,3 +23,6 @@
   font-family: 'Raleway', sans-serif;
   font-size: 25px ;
 }
+body{
+  background-color: rgba(100,200,100, 0.3);
+}
