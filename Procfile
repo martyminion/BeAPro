@@ -1,0 +1,1 @@
+web: gunicorn beapro.wsgi --log-file -
