@@ -6,6 +6,7 @@
 <div class="container text-center">
 
   <div style="margin-top: 100px;">
+  
     <div class="row">
       <div class="col-md-6 col-lg-6">
         <div class="fill">
@@ -17,9 +18,14 @@
         <h3 class="titles">{{project.title}}</h3>
         <cite class="description">{{project.description}}</cite>
         <a href="{{project.live_site}}"><blockquote class="description">{{project.live_site}}</blockquote></a>
+        <p class="names">Jury Average: {{jury_average}}</p>
+        {%if ratingnumber == 1%}
+          <p>You've already rated this project</p>
+        {%else%}
         <div>
           <a class="btn btn-outline-success" href="{% url 'rateproject' project.id %}">Rate</a>
         </div>
+        {%endif%}
       </div>
     </div>
   </div>

@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 import datetime as dt
 from statistics import mean
 from cloudinary.models import CloudinaryField
+from django.core.validators import MinValueValidator,MaxValueValidator
 # Create your models here.
 
 User = get_user_model()
@@ -85,9 +86,9 @@ class Project(models.Model):
     return self.title
 
 class Rating(models.Model):
-  design = models.DecimalField(decimal_places=2,max_digits=4)
-  usability = models.DecimalField(decimal_places=2,max_digits=4)
-  content = models.DecimalField(decimal_places=2,max_digits=4)
+  design = models.DecimalField(decimal_places=2,max_digits=4,validators=[MaxValueValidator(10),MinValueValidator(1)])
+  usability = models.DecimalField(decimal_places=2,max_digits=4,validators=[MaxValueValidator(10),MinValueValidator(1)])
+  content = models.DecimalField(decimal_places=2,max_digits=4,validators=[MaxValueValidator(10),MinValueValidator(1)])
   profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
   project = models.ForeignKey(Project, on_delete=models.CASCADE)
   average = models.DecimalField(decimal_places=2,max_digits=4)

@@ -104,14 +104,14 @@ $ pip install psycopg2
     GET: `http://127.0.0.1:8000/api/profiles`
 1. To get projects
     GET: `http://127.0.0.1:8000/api/projects`
-    
+
 ## Bugs
   No  bugs as of yet, if encountered you can get me on *martyminion0@gmail* or log an issue from github
 
 
 ## Deployment
 
-The app can be found live on heroku: 
+The app can be found live on heroku:  https://martbeapro.herokuapp.com/
 ## Built With
 
 * Python 3.6.9 

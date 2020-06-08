@@ -104,18 +104,29 @@ def singleproject(request,projectid):
   project = Project.get_single_project(projectid)
   title = project.title
   ratings = Rating.get_project_ratings(project)
+  current_user = request.user  
+  userratings = Rating.objects.filter(project = project, profile = current_user.profile)
+  ratingnumber = len(userratings)
+  
+  if ratings:
+    jury_average = Rating.jury_average(project)
+  else:
+    jury_average = "No ratings Yet"
 
-  return render(request, 'project/single_project.html', {"title":title,"project":project,"ratings":ratings})
+
+  return render(request, 'project/single_project.html', {"title":title,"project":project,"ratings":ratings,"jury_average":jury_average,"ratingnumber":ratingnumber})
 
 @login_required
 def rate_project(request,projectid):
   project = Project.get_single_project(projectid)
   title = "Rate " + project.title
+  current_user = request.user
+  
   if request.method == 'POST':
     form = RatingsForm(request.POST)
     if form.is_valid():
       new_rating = form.save(commit=False)
-      new_rating.profile = project.profile
+      new_rating.profile = current_user.profile
       new_rating.project = project
       new_rating.average = new_rating.average_individual_ratings()
 
@@ -123,6 +134,7 @@ def rate_project(request,projectid):
       return redirect(singleproject,projectid = project.id)
   else:
     form = RatingsForm()
+
   context = {'title':title,'project':project,'form':form}
   return render(request,'project/rate_project.html',context)
 
