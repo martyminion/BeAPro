@@ -7,6 +7,7 @@ import datetime as dt
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializer import ProfileSerializer,ProjectSerializer
+from award.permissions import IsAuthenticatedOrReadOnly
 
 # Create your views here.
 
@@ -126,12 +127,14 @@ def rate_project(request,projectid):
   return render(request,'project/rate_project.html',context)
 
 class ProjectList(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly)
   def get(self,request, format = None):
     all_projects = Project.get_all_projects()
     serializers = ProjectSerializer(all_projects,many = True)
     return Response(serializers.data)
 
 class ProfileList(APIView):
+  permission_classes = (IsAuthenticatedOrReadOnly)
   def get(self,request,format = None):
     all_profiles = Profile.objects.all()
     serializers = ProfileSerializer(all_profiles,many = True)
